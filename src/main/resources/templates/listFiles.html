@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TestAPSoft</title>
+</head>
+<body>
+
+<h1>TestAPSoft</h1>
+
+<hr/>
+
+<h4>Upload File:</h4>
+<form method="POST" enctype="multipart/form-data" th:action="@{/upload-file}">
+    <input type="file" name="file"> <br/><br/>
+    <button type="submit">Submit</button>
+</form>
+
+<hr/>
+
+<h4>Download File by ID:</h4>
+<form method="POST" th:action="@{/download}">
+    <label>
+        <input type="text" name="id">
+    </label> <br/><br/>
+    <button type="submit">Submit</button>
+</form>
+
+<hr/>
+
+<h2>All Uploaded Files:</h2>
+<ul>
+    <li th:each="file : ${files}">
+        <a th:href="${file}" target="_blank" th:text="${file}"></a>
+    </li>
+</ul>
+
+</body>
+</html>
