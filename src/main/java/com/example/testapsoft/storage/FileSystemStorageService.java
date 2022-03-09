@@ -75,6 +75,7 @@ public class FileSystemStorageService implements StorageService {
         Path file = load(filename);
         String contents = readUsingFiles(file.toString());
         contents = contents.replaceAll("\\r\\n?", "\n");
+        contents = contents.replaceAll("#+", "\\u 2029");
         try (DataOutputStream os = new DataOutputStream(new FileOutputStream(file.toString()))) {
             os.write(contents.getBytes());
         }
