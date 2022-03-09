@@ -36,18 +36,17 @@ public class FileController {
     @GetMapping("/download/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> downloadFile(@PathVariable String filename) {
-        Resource resource = storageService.loadAsResource(filename);
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment; filename=\"" + resource.getFilename() + "\"")
-                .body(resource);
+        return getResourceResponseEntity(filename);
     }
 
     @PostMapping("/download")
     @ResponseBody
     public ResponseEntity<Resource> downloadFileById(@RequestParam("id") String id) {
-        Resource resource = storageService.loadAsResource(id + ".txt");
+        return getResourceResponseEntity(id + ".txt");
+    }
+
+    private ResponseEntity<Resource> getResourceResponseEntity(String filename) {
+        Resource resource = storageService.loadAsResource(filename);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
